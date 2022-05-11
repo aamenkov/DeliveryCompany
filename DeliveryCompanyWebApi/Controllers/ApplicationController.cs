@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DeliveryCompanyData.Entities;
 using DeliveryCompanyDataAccessEF.Interface;
 using Microsoft.AspNetCore.Http;
@@ -16,10 +17,77 @@ namespace DeliveryCompanyWebApi.Controllers
             this._unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
-        public IEnumerable<Application> GetAllPersons()
+        /// <summary>
+        /// Retrieve the Application by their id.
+        /// </summary>
+        /// <param name="id">id of Application</param>
+        /// <returns>Application</returns>
+        /// <response code="200">Returns the Application</response>
+        /// <response code="204">Application not found</response>
+        // GET: api/Application/<id>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int? id)
         {
-            return _unitOfWork.Application.GetAll();
+            if (id == null)
+            {
+                return BadRequest("Ошибка");
+            }
+
+            var application = await _unitOfWork.Application.Get(id);
+
+            if (application == null) return BadRequest("Ошибка ввода");
+            return Ok(application);
+        }
+
+        /// <summary>
+        /// Creates a new Application.
+        /// </summary>
+        /// <param name="application"></param>
+        /// <response code="200">OK</response>
+        /// <response code="400">Bad Request</response>
+        // POST: api/Cassette
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] Application application)
+        {
+            if (Validation.Validation.CheckApplication(application))
+            {
+                await _unitOfWork.Application.Add(application);
+                return Ok(application);
+            }
+            return BadRequest("Заявка не создана");
+        }
+
+        /// <summary>
+        /// Edit an Application.
+        /// </summary>
+        /// <param name="application">Changable Application.</param>
+        // PUT: api/Application/<id>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put([FromBody] Application application)
+        {
+            if (Validation.Validation.CheckApplication(application))
+            {
+                await _unitOfWork.Application.Update(application);
+                return Ok(application);
+            }
+            return BadRequest("Заявка не обновлена");
+        }
+
+        /// <summary>
+        /// Deletes a specific Application by their id.
+        /// </summary>
+        /// <param name="id">id of Application</param>
+        // DELETE: api/Application/<id>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var item = await _unitOfWork.Application.Get(id);
+            if (item != null)
+            {
+                await _unitOfWork.Application.Delete(id);
+                return Ok("Удаление прошло успешно");
+            }
+            return BadRequest("Удаление не произошло");
         }
     }
 }
