@@ -7,7 +7,5 @@ using DeliveryCompanyData.Entities;
 
 namespace DeliveryCompanyDataAccessEF.Interface
 {
-    public interface IDepartmentRepository : IRepository<Department> 
-    {
-    }
+    public interface IDepartmentRepository : IRepository<Department> { }
 }

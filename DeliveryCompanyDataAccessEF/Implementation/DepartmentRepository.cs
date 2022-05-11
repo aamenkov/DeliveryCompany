@@ -13,5 +13,4 @@ namespace DeliveryCompanyDataAccessEF.Implementation
     {
         public DepartmentRepository(MyAppContext context) : base(context) { }
     }
-
 }
