@@ -9,14 +9,24 @@ namespace DeliveryCompanyData.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ApplicationId { get; set; }
+        [MaxLength(255)]
+        [Required]
         public string ReceivingAddress { get; set; }
+        [MaxLength(50)]
         public string ReceivingTown { get; set; }
+        [MaxLength(255)]
         public string DeliveryAddress { get; set; }
+        [MaxLength(50)]
+        [Required]
         public string DeliveryTown { get; set; }
+        [Required]
         public int Weight { get; set; }
-        public int PhoneNumber { get; set; }
-        public bool IsWorking { get; set; }
+        [MaxLength(11)]
+        public string PhoneNumber { get; set; }
+        [MaxLength(50)]
+        [Required]
         public string Status { get; set; }
+        [MaxLength(512)]
         public string Message { get; set; }
         [ForeignKey("DepartmentInfoKey")]
         public Guid DepartmentId { get; set; }

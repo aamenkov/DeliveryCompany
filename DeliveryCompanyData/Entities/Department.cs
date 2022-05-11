@@ -11,6 +11,9 @@ namespace DeliveryCompanyData.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid DepartmentId { get; set; }
+        [MaxLength(50)]
+        [Required]
+        public string Town { get; set; }
         public List<Application> ApplicationList { get; set; }
     }
 }
