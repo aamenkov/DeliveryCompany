@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DeliveryCompanyData.Entities;
+using DeliveryCompanyDataAccessEF.Context;
 using DeliveryCompanyDataAccessEF.Implementation;
 using DeliveryCompanyDataAccessEF.Interface;
 
@@ -13,8 +15,8 @@ namespace DeliveryCompanyDataAccessEF_xUnitTests
     {
         internal static Application AddTestApplication(string deliveryAddress)
         {
-           // IDBConnectionString testConnectionString = new DBConnectionString(CONNECTION_NAME);
-           // IUnitOfWork unitOfWork = new UnitOfWork(testConnectionString);
+       //     var Context = new MyAppContext(options: options => options.UseSqlServer(ConfigurationManager.AppSettings.Get("DefaultConnection")));
+       //      IUnitOfWork unitOfWork = new UnitOfWork(Context);
 
             var application = new Application
             {
@@ -28,7 +30,7 @@ namespace DeliveryCompanyDataAccessEF_xUnitTests
                 Message = "OK"
             };
 
-          //  var newApplication = unitOfWork.Application.Add(application);
+        //    var newApplication = unitOfWork.Application.Add(application);
 
             return application;
         }
