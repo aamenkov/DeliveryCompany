@@ -22,6 +22,10 @@ namespace DeliveryCompanyWebApi.Validation
         public static bool CheckApplicationList(List<Application> list)
         {
             var check = true;
+
+            if (list == null)
+                return true;
+
             foreach (var variable in list.Where(variable => !CheckApplication(variable)))
             {
                 check = false;
