@@ -9,14 +9,12 @@ namespace DeliveryCompanyDataAccessEF_xUnitTests
 {
     internal static class RepositoryDepartmentHelper
     {
-        internal static Department AddTestDepartment(string townName)
+        internal static Department AddTestDepartment(string name)
         {
-            // IDBConnectionString testConnectionString = new DBConnectionString(CONNECTION_NAME);
-            // IUnitOfWork unitOfWork = new UnitOfWork(testConnectionString);
 
             var department = new Department
             {
-                Town = townName,
+                Name = name,
                 ApplicationList = null
             };
 

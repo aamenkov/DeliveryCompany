@@ -15,8 +15,8 @@ namespace DeliveryCompanyDataAccessEF_xUnitTests
     {
         internal static Application AddTestApplication(string deliveryAddress)
         {
-       //     var Context = new MyAppContext(options: options => options.UseSqlServer(ConfigurationManager.AppSettings.Get("DefaultConnection")));
-       //      IUnitOfWork unitOfWork = new UnitOfWork(Context);
+        //    var Context = new MyAppContext(options: options => options.UseSqlServer(ConfigurationManager.AppSettings.Get("DefaultConnection")));
+        //    IUnitOfWork unitOfWork = new UnitOfWork(Context);
 
             var application = new Application
             {
@@ -30,7 +30,7 @@ namespace DeliveryCompanyDataAccessEF_xUnitTests
                 Message = "OK"
             };
 
-        //    var newApplication = unitOfWork.Application.Add(application);
+        //  var newApplication = unitOfWork.Application.Add(application);
 
             return application;
         }
