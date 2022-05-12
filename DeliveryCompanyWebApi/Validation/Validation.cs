@@ -9,7 +9,8 @@ namespace DeliveryCompanyWebApi.Validation
     {
         public static bool CheckApplication(Application application)
         {
-            if (application.Weight > 0)
+            if ((application.Weight >= 0) && (application.Height >= 0) && (application.Length >= 0) && 
+                (application.Width >= 0) && (application.Volume >= 0))
             {
                 return true;
             }
@@ -30,9 +31,6 @@ namespace DeliveryCompanyWebApi.Validation
             {
                 check = false;
             }
-
-            if (list.Count > 8)
-                check = false;
 
             return check;
         }
