@@ -24,10 +24,10 @@ namespace DeliveryCompanyWebApi.Controllers
         /// <param name="id">id of Department</param>
         /// <returns>ATM</returns>
         /// <response code="200">Returns the Department</response>
-        /// <response code="204">Department not found</response>
+        /// <response code="400">Department not found</response>
         // GET api/Department/<id>
         [HttpGet("{id}")]
-        public async Task<ActionResult> Get(Guid? id)
+        public async Task<ActionResult> Get(int? id)
         {
             if (id == null)
             {
@@ -64,7 +64,9 @@ namespace DeliveryCompanyWebApi.Controllers
         /// Edit a Department.
         /// </summary>
         /// <param name="department">Changable Department.</param>
-        // PUT api/ATM/<id>
+        /// <response code="200">OK</response>
+        /// <response code="400">Bad Request</response>
+        // PUT api/Department/<id>
         [HttpPut("{id}")]
         public async Task<IActionResult> Put([FromBody] Department department)
         {
@@ -80,9 +82,11 @@ namespace DeliveryCompanyWebApi.Controllers
         /// Deletes a specific Department by their id.
         /// </summary>
         /// <param name="id">id of Department</param>
+        /// <response code="200">OK</response>
+        /// <response code="400">Bad Request</response>
         // DELETE api/Department/<id>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(int id)
         {
             var item = await _unitOfWork.Department.Get(id);
             if (item != null)

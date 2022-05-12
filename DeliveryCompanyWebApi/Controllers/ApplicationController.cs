@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DeliveryCompanyData.Entities;
 using DeliveryCompanyDataAccessEF.Interface;
@@ -23,10 +24,10 @@ namespace DeliveryCompanyWebApi.Controllers
         /// <param name="id">id of Application</param>
         /// <returns>Application</returns>
         /// <response code="200">Returns the Application</response>
-        /// <response code="204">Application not found</response>
+        /// <response code="400">Application not found</response>
         // GET: api/Application/<id>
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int? id)
+        public async Task<IActionResult> Get(Guid? id)
         {
             if (id == null)
             {
@@ -45,7 +46,7 @@ namespace DeliveryCompanyWebApi.Controllers
         /// <param name="application"></param>
         /// <response code="200">OK</response>
         /// <response code="400">Bad Request</response>
-        // POST: api/Cassette
+        // POST: api/Application
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Application application)
         {
@@ -61,6 +62,8 @@ namespace DeliveryCompanyWebApi.Controllers
         /// Edit an Application.
         /// </summary>
         /// <param name="application">Changable Application.</param>
+        /// <response code="200">OK</response>
+        /// <response code="400">Bad Request</response>
         // PUT: api/Application/<id>
         [HttpPut("{id}")]
         public async Task<IActionResult> Put([FromBody] Application application)
@@ -77,9 +80,11 @@ namespace DeliveryCompanyWebApi.Controllers
         /// Deletes a specific Application by their id.
         /// </summary>
         /// <param name="id">id of Application</param>
+        /// <response code="200">OK</response>
+        /// <response code="400">Bad Request</response>
         // DELETE: api/Application/<id>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var item = await _unitOfWork.Application.Get(id);
             if (item != null)
