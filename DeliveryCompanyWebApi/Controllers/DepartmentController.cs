@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DeliveryCompanyWebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class DepartmentController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -18,6 +18,39 @@ namespace DeliveryCompanyWebApi.Controllers
         {
             this._unitOfWork = unitOfWork;
         }
+
+        /// <summary>
+        /// Retrieve the Application list by their DepartmentId.
+        /// </summary>
+        /// <returns>Application list</returns>
+        /// <response code="200">Returns the Application list</response>
+        /// <response code="400">Application list not found</response>
+        // GET api/Department/Applications
+        [HttpGet("Applications")]
+        public async Task<ActionResult> GetApplications(int id)
+        {
+            var departmentList = await _unitOfWork.Department.GetApplications(id);
+
+            if (departmentList.Count == 0) return BadRequest("Ошибка. Заявок для данного отделениия не существует.");
+            return Ok(departmentList);
+        }
+
+        /// <summary>
+        /// Retrieve the Department list.
+        /// </summary>
+        /// <returns>Department list</returns>
+        /// <response code="200">Returns the Department list</response>
+        /// <response code="400">Department list not found</response>
+        // GET api/Department
+        [HttpGet("")]
+        public async Task<ActionResult> GetDepartments()
+        {
+            var departmentList = await _unitOfWork.Department.GetAll();
+
+            if (departmentList == null) return BadRequest("Ошибка ввода. Не найдены отделения.");
+            return Ok(departmentList);
+        }
+
         /// <summary>
         /// Retrieve the Department by their id.
         /// </summary>
