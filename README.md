@@ -1,6 +1,7 @@
 ## Репозиторий для тестового задания :hatching_chick:
-Полностью реализована серверная часть. \
-Десктопный WPF-клиент находится в доработке.
+В данном репозитории находится реализованная серверная часть. \
+Десктопный WPF-клиент находится в доработе и расположен [тут](https://github.com/aamenkov/DeliveryCompany_client).
+
 * * *
 ### Условие. Задание C#:
 
@@ -23,13 +24,14 @@
 * * *
 ### To RUN:
 * Модифицировать appsettings.json для корректного использования БД.
-* Открыть в VS (>Средства >Диспетчер пакетов NuGet >Консоль)
+* Открыть в VS (>Средства >Диспетчер пакетов NuGet >Консоль) \
+ В проекте по умолчанию в консоли должен стоять проект "DeliveryCompanyDataAccessEF"
 ```  
   add-migration {MigrationName}
   update-database
 ```  
-* Запустить проект DeliveryCompanyWebApi
-* Запустить проект DeliveryCompany_WPF из этого репозитория ()
+* Запустить проект DeliveryCompanyWebApi.
+* Запустить проект [DeliveryCompany_WPF](https://github.com/aamenkov/DeliveryCompany_client).
 
 * * *
 
