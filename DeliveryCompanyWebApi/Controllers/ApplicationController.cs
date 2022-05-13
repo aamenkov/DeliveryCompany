@@ -118,6 +118,7 @@ namespace DeliveryCompanyWebApi.Controllers
             try
             {
                 var applicationOld = await _unitOfWork.Application.Get(application.ApplicationId);
+                if (applicationOld == null) return BadRequest("Ошибка ввода");
 
                 if (Validation.Validation.CheckApplication(application) && (applicationOld.Status.Equals("Новая")))
                 {
@@ -133,6 +134,46 @@ namespace DeliveryCompanyWebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Edit a status of Application.
+        /// </summary>
+        /// <param name="id">ID of Changable Application.</param>
+        /// <param name="idOfApplicationStatus">id of Application Status.</param>
+        /// <param name="Comment">Comment to Application.</param>
+        /// <remarks>
+        /// idOfApplicationStatus:
+        /// '1' - "Новая",
+        /// '2' - "Передано на выполнение",
+        /// '3' - "Выполнена",
+        /// '4' - "Отменена".
+        /// </remarks>
+        /// <response code="200">OK</response>
+        /// <response code="400">Bad Request</response>
+        // POST: api/Application/<id>/<idOfApplicationStatus>
+        [HttpPost("{id}/{idOfApplicationStatus}")]
+        public async Task<IActionResult> ChangeStatus(Guid id, int idOfApplicationStatus, string Comment)
+        {
+            string[] expectedStatusInput = { "Новая", "Передано на выполнение", "Выполнена", "Отменена" };
+            try
+            {
+                Application applicationOld = await _unitOfWork.Application.Get(id);
+                if (applicationOld == null) return BadRequest("Ошибка ввода");
+
+                if (idOfApplicationStatus <= 4)
+                {
+                    applicationOld.Status = expectedStatusInput[idOfApplicationStatus-1];
+                    applicationOld.Message = Comment;
+                    await _unitOfWork.Application.Update(applicationOld);
+                    return Ok(applicationOld);
+                }
+                return BadRequest("Cтатус не был обновлен");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.ToString());
+            }
+        }
         /// <summary>
         /// Deletes a specific Application by their id.
         /// </summary>
