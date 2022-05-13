@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DeliveryCompanyData.Entities;
-using DeliveryCompanyDataAccessEF.Implementation;
-using DeliveryCompanyDataAccessEF.Interface;
+﻿using DeliveryCompany.Domain.Entities;
 using Xunit;
 
-namespace DeliveryCompanyDataAccessEF_xUnitTests
+namespace DeliveryCompany.DataAccessEF_xUnitTests
 {
     /// <summary>
     /// Класс для тестирования репозитория отделений.

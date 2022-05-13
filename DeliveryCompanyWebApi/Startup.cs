@@ -1,24 +1,18 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using DeliveryCompanyDataAccessEF.Context;
-using DeliveryCompanyDataAccessEF.Implementation;
-using DeliveryCompanyDataAccessEF.Interface;
+using DeliveryCompany.DataAccessEF.Context;
+using DeliveryCompany.DataAccessEF.Implementation;
+using DeliveryCompany.Domain.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace DeliveryCompanyWebApi
+namespace DeliveryCompany.WebApi
 {
     public class Startup
     {
@@ -43,7 +37,7 @@ namespace DeliveryCompanyWebApi
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
-                c.IncludeXmlComments($@"{System.AppDomain.CurrentDomain.BaseDirectory}\DeliveryCompanyWebApi.XML");
+                c.IncludeXmlComments($@"{System.AppDomain.CurrentDomain.BaseDirectory}\DeliveryCompany.WebApi.XML");
             });
         }
 

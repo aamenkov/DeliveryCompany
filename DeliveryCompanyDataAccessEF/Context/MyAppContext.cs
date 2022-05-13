@@ -1,7 +1,7 @@
-﻿using DeliveryCompanyData.Entities;
+﻿using DeliveryCompany.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DeliveryCompanyDataAccessEF.Context
+namespace DeliveryCompany.DataAccessEF.Context
 {
     public class MyAppContext : DbContext
     {

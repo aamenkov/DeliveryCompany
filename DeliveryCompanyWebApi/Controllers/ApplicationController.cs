@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeliveryCompanyData.Entities;
-using DeliveryCompanyDataAccessEF.Interface;
-using DeliveryCompanyWebApi.Validation;
-using Microsoft.AspNetCore.Http;
+using DeliveryCompany.Domain.Entities;
+using DeliveryCompany.Domain.Interface;
+using DeliveryCompany.WebApi.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace DeliveryCompanyWebApi.Controllers
+namespace DeliveryCompany.WebApi.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]

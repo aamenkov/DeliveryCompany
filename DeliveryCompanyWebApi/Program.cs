@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NLog.Web;
 
-namespace DeliveryCompanyWebApi
+namespace DeliveryCompany.WebApi
 {
     public class Program
     {

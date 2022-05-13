@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using DeliveryCompanyData.Entities;
-using DeliveryCompanyDataAccessEF.Interface;
-using DeliveryCompanyDataAccessEF.Context;
+using DeliveryCompany.DataAccessEF.Context;
+using DeliveryCompany.Domain.Entities;
+using DeliveryCompany.Domain.Interface;
 
-namespace DeliveryCompanyDataAccessEF.Implementation
+namespace DeliveryCompany.DataAccessEF.Implementation
 {
     public class DepartmentRepository : Repository<Department>, IDepartmentRepository
     {

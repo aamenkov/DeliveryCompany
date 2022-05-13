@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DeliveryCompanyDataAccessEF.Interface
+namespace DeliveryCompany.Domain.Interface
 {
     /// <summary>
     /// Репозиторий для сущности системы. Доопределяется для каждной конкретной сущности.

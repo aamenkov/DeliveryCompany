@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeliveryCompanyDataAccessEF.Interface;
-using DeliveryCompanyDataAccessEF.Context;
+using DeliveryCompany.DataAccessEF.Context;
+using DeliveryCompany.Domain.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace DeliveryCompanyDataAccessEF.Implementation
+namespace DeliveryCompany.DataAccessEF.Implementation
 {
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {

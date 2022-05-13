@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeliveryCompanyData.Entities;
+using DeliveryCompany.Domain.Entities;
 
-namespace DeliveryCompanyDataAccessEF.Interface
+
+namespace DeliveryCompany.Domain.Interface
 {
     public interface IDepartmentRepository : IRepository<Department>
     {

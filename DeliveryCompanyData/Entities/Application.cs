@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace DeliveryCompanyData.Entities
+namespace DeliveryCompany.Domain.Entities
 {   
     /// <summary>
     /// Класс для заявок.

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace DeliveryCompanyDataAccessEF.Interface
+namespace DeliveryCompany.Domain.Interface
 {
     /// <summary>
     /// Используется при выполнении операций над объектами

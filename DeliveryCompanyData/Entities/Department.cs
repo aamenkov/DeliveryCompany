@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Transactions;
 using Microsoft.EntityFrameworkCore;
 
-namespace DeliveryCompanyData.Entities
+namespace DeliveryCompany.Domain.Entities
 {
     /// <summary>
     /// Класс для отделений.

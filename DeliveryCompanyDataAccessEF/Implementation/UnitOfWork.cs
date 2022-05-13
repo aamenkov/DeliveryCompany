@@ -1,8 +1,7 @@
-﻿using DeliveryCompanyDataAccessEF.Interface;
-using System;
-using DeliveryCompanyDataAccessEF.Context;
+﻿using DeliveryCompany.DataAccessEF.Context;
+using DeliveryCompany.Domain.Interface;
 
-namespace DeliveryCompanyDataAccessEF.Implementation
+namespace DeliveryCompany.DataAccessEF.Implementation
 {
     public class UnitOfWork : IUnitOfWork
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DeliveryCompanyData.Entities;
+using DeliveryCompany.Domain.Entities;
 
-namespace DeliveryCompanyWebApi.Validation
+namespace DeliveryCompany.WebApi.Validation
 {
     /// <summary>
     /// Вспомогательный класс для валидации и проверки входных данных

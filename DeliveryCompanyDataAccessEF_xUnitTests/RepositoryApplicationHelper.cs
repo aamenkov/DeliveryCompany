@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DeliveryCompanyData.Entities;
-using DeliveryCompanyDataAccessEF.Context;
-using DeliveryCompanyDataAccessEF.Implementation;
-using DeliveryCompanyDataAccessEF.Interface;
+﻿using DeliveryCompany.Domain.Entities;
 
-namespace DeliveryCompanyDataAccessEF_xUnitTests
+
+namespace DeliveryCompany.DataAccessEF_xUnitTests
 {
     /// <summary>
     /// Вспомогательный класс для тестирования, для создания заявок.

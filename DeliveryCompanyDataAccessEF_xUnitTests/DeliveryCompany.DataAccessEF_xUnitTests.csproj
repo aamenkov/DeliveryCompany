@@ -32,8 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DeliveryCompanyDataAccessEF\DeliveryCompanyDataAccessEF.csproj" />
-    <ProjectReference Include="..\DeliveryCompanyData\DeliveryCompanyData.csproj" />
+    <ProjectReference Include="..\DeliveryCompanyDataAccessEF\DeliveryCompany.DataAccessEF.csproj" />
+    <ProjectReference Include="..\DeliveryCompanyData\DeliveryCompany.Domain.csproj" />
   </ItemGroup>
 
 </Project>

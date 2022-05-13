@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace DeliveryCompanyDataAccessEF_xUnitTests
+namespace DeliveryCompany.DataAccessEF_xUnitTests
 {
     /// <summary>
     /// Класс для тестирования репозитория заявок.
