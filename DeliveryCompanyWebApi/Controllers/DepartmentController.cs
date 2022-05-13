@@ -6,6 +6,7 @@ using DeliveryCompanyData.Entities;
 using DeliveryCompanyDataAccessEF.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace DeliveryCompanyWebApi.Controllers
 {
@@ -14,9 +15,11 @@ namespace DeliveryCompanyWebApi.Controllers
     public class DepartmentController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public DepartmentController(IUnitOfWork unitOfWork)
+        private readonly ILogger<DepartmentController> _logger;
+        public DepartmentController(IUnitOfWork unitOfWork, ILogger<DepartmentController> logger)
         {
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         /// <summary>
@@ -29,10 +32,18 @@ namespace DeliveryCompanyWebApi.Controllers
         [HttpGet("Applications")]
         public async Task<ActionResult> GetApplications(int id)
         {
-            var departmentList = await _unitOfWork.Department.GetApplications(id);
+            try
+            {
+                var departmentList = await _unitOfWork.Department.GetApplications(id);
 
-            if (departmentList.Count == 0) return BadRequest("Ошибка. Заявок для данного отделениия не существует.");
-            return Ok(departmentList);
+                if (departmentList.Count == 0) return BadRequest("Ошибка. Заявок для данного отделениия не существует.");
+                return Ok(departmentList);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.ToString());
+            }
         }
 
         /// <summary>
@@ -45,10 +56,18 @@ namespace DeliveryCompanyWebApi.Controllers
         [HttpGet("")]
         public async Task<ActionResult> GetDepartments()
         {
-            var departmentList = await _unitOfWork.Department.GetAll();
+            try
+            {
+                var departmentList = await _unitOfWork.Department.GetAll();
 
-            if (departmentList == null) return BadRequest("Ошибка ввода. Не найдены отделения.");
-            return Ok(departmentList);
+                if (departmentList == null) return BadRequest("Ошибка ввода. Не найдены отделения.");
+                return Ok(departmentList);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.ToString());
+            }
         }
 
         /// <summary>
@@ -62,15 +81,23 @@ namespace DeliveryCompanyWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int? id)
         {
-            if (id == null)
+            try
             {
-                return BadRequest("Ошибка ввода.");
+                if (id == null)
+                {
+                    return BadRequest("Ошибка ввода.");
+                }
+
+                var department = await _unitOfWork.Department.Get(id);
+
+                if (department == null) return BadRequest("Ошибка ввода. Не найдено отделение.");
+                return Ok(department);
             }
-
-            var department = await _unitOfWork.Department.Get(id);
-
-            if (department == null) return BadRequest("Ошибка ввода. Не найдено отделение.");
-            return Ok(department);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.ToString());
+            }
         }
 
 
@@ -103,12 +130,20 @@ namespace DeliveryCompanyWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put([FromBody] Department department)
         {
-            if (Validation.Validation.CheckApplicationList(department.ApplicationList))
+            try
             {
-                await _unitOfWork.Department.Update(department);
-                return Ok(department);
+                if (Validation.Validation.CheckApplicationList(department.ApplicationList))
+                {
+                    await _unitOfWork.Department.Update(department);
+                    return Ok(department);
+                }
+                return BadRequest("Отделение не обновлено");
             }
-            return BadRequest("Отделение не обновлено");
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.ToString());
+            }
         }
 
         /// <summary>
@@ -121,13 +156,21 @@ namespace DeliveryCompanyWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var item = await _unitOfWork.Department.Get(id);
-            if (item != null)
+            try
             {
-                await _unitOfWork.Department.Delete(id);
-                return Ok("Удаление прошло успешно");
+                var item = await _unitOfWork.Department.Get(id);
+                if (item != null)
+                {
+                    await _unitOfWork.Department.Delete(id);
+                    return Ok("Удаление прошло успешно");
+                }
+                return BadRequest("Удаление не произошло");
             }
-            return BadRequest("Удаление не произошло");
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.ToString());
+            }
         }
     }
 }

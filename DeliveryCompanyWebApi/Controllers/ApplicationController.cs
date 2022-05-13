@@ -5,6 +5,7 @@ using DeliveryCompanyData.Entities;
 using DeliveryCompanyDataAccessEF.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace DeliveryCompanyWebApi.Controllers
 {
@@ -13,9 +14,35 @@ namespace DeliveryCompanyWebApi.Controllers
     public class ApplicationController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ApplicationController(IUnitOfWork unitOfWork)
+        private readonly ILogger<ApplicationController> _logger;
+        public ApplicationController(IUnitOfWork unitOfWork, ILogger<ApplicationController> logger)
         {
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _logger = logger;
+        }
+
+        /// <summary>
+        /// Retrieve the Application list.
+        /// </summary>
+        /// <returns>Department list</returns>
+        /// <response code="200">Returns the Application list</response>
+        /// <response code="400">Application list not found</response>
+        // GET api/Application
+        [HttpGet("")]
+        public async Task<ActionResult> GetApplications()
+        {
+            try
+            {
+                var applicationList = await _unitOfWork.Application.GetAll();
+                if (applicationList == null) return BadRequest("Ошибка ввода. Не найдены заявки.");
+                return Ok(applicationList);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.ToString());
+            }
+
         }
 
         /// <summary>
@@ -29,16 +56,27 @@ namespace DeliveryCompanyWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid? id)
         {
-            if (id == null)
+            try
             {
-                return BadRequest("Ошибка");
+                if (id == null)
+                {
+                    return BadRequest("Ошибка");
+                }
+
+                var application = await _unitOfWork.Application.Get(id);
+
+                if (application == null) return BadRequest("Ошибка ввода");
+                return Ok(application);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.ToString());
             }
 
-            var application = await _unitOfWork.Application.Get(id);
-
-            if (application == null) return BadRequest("Ошибка ввода");
-            return Ok(application);
         }
+
+
 
         /// <summary>
         /// Creates a new Application.
@@ -50,13 +88,22 @@ namespace DeliveryCompanyWebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Application application)
         {
-            if (Validation.Validation.CheckApplication(application))
+            try
             {
-                await _unitOfWork.Application.Add(application);
-                return Ok(application);
+                if (Validation.Validation.CheckApplication(application))
+                {
+                    await _unitOfWork.Application.Add(application);
+                    return Ok(application);
+                }
+                return BadRequest("Заявка не создана");
             }
-            return BadRequest("Заявка не создана");
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.ToString());
+            }
         }
+    
 
         /// <summary>
         /// Edit an Application.
@@ -68,12 +115,22 @@ namespace DeliveryCompanyWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put([FromBody] Application application)
         {
-            if (Validation.Validation.CheckApplication(application))
+            try
             {
-                await _unitOfWork.Application.Update(application);
-                return Ok(application);
+                var applicationOld = await _unitOfWork.Application.Get(application.ApplicationId);
+
+                if (Validation.Validation.CheckApplication(application) && (applicationOld.Status.Equals("Новая")))
+                {
+                    await _unitOfWork.Application.Update(application);
+                    return Ok(application);
+                }
+                return BadRequest("Заявка не обновлена");
             }
-            return BadRequest("Заявка не обновлена");
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.ToString());
+            }
         }
 
         /// <summary>
@@ -86,13 +143,21 @@ namespace DeliveryCompanyWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var item = await _unitOfWork.Application.Get(id);
-            if (item != null)
+            try
             {
-                await _unitOfWork.Application.Delete(id);
-                return Ok("Удаление прошло успешно");
+                var item = await _unitOfWork.Application.Get(id);
+                if (item != null)
+                {
+                    await _unitOfWork.Application.Delete(id);
+                    return Ok("Удаление прошло успешно");
+                }
+                return BadRequest("Удаление не произошло");
             }
-            return BadRequest("Удаление не произошло");
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest(ex.ToString());
+            }
         }
     }
 }

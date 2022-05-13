@@ -7,17 +7,13 @@ namespace DeliveryCompanyWebApi.Validation
 {
     public static class Validation
     {
+        //TODO: добавить логгирование
+        private static readonly string[] _expectedInput = { "Новая", "Передано на выполнение", "Выполнена", "Отменена" };
         public static bool CheckApplication(Application application)
         {
-            if ((application.Weight >= 0) && (application.Height >= 0) && (application.Length >= 0) && 
-                (application.Width >= 0) && (application.Volume >= 0))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return ((Array.IndexOf(_expectedInput, application.Status) >= 0) || (application.Status == null))
+                   && (application.Weight >= 0) && (application.Height >= 0) && (application.Length >= 0) 
+                   && (application.Width >= 0) && (application.Volume >= 0);
         }
 
         public static bool CheckApplicationList(List<Application> list)
