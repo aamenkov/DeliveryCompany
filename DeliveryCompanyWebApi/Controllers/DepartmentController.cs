@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using DeliveryCompanyData.Entities;
 using DeliveryCompanyDataAccessEF.Interface;
+using DeliveryCompanyWebApi.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -79,15 +80,10 @@ namespace DeliveryCompanyWebApi.Controllers
         /// <response code="400">Department not found</response>
         // GET api/Department/<id>
         [HttpGet("{id}")]
-        public async Task<ActionResult> Get(int? id)
+        public async Task<ActionResult> Get(int id)
         {
             try
             {
-                if (id == null)
-                {
-                    return BadRequest("Ошибка ввода.");
-                }
-
                 var department = await _unitOfWork.Department.Get(id);
 
                 if (department == null) return BadRequest("Ошибка ввода. Не найдено отделение.");
@@ -111,7 +107,7 @@ namespace DeliveryCompanyWebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Department department)
         {
-            if (Validation.Validation.CheckApplicationList(department.ApplicationList))
+            if (ApplicationValidation.CheckList(department.ApplicationList))
             {
                 await _unitOfWork.Department.Add(department);
                 return Ok(department);
@@ -132,7 +128,7 @@ namespace DeliveryCompanyWebApi.Controllers
         {
             try
             {
-                if (Validation.Validation.CheckApplicationList(department.ApplicationList))
+                if (ApplicationValidation.CheckList(department.ApplicationList))
                 {
                     await _unitOfWork.Department.Update(department);
                     return Ok(department);

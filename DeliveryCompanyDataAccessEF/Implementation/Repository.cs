@@ -25,18 +25,14 @@ namespace DeliveryCompanyDataAccessEF.Implementation
             return entity;
         }
 
-        public async Task<TEntity> Delete(object id)
+        public async Task Delete(object id)
         {
             var entity = await Context.Set<TEntity>().FindAsync(id);
-            if (entity == null)
+            if (entity != null)
             {
-                return null;
+                Context.Set<TEntity>().Remove(entity);
+                await Context.SaveChangesAsync();
             }
-
-            Context.Set<TEntity>().Remove(entity);
-            await Context.SaveChangesAsync();
-
-            return entity;
         }
 
         public async Task<TEntity> Get(object id)
@@ -49,11 +45,10 @@ namespace DeliveryCompanyDataAccessEF.Implementation
             return await Context.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity> Update(TEntity entity)
+        public async Task Update(TEntity entity)
         {
             Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
-            return entity;
         }
     }
 }

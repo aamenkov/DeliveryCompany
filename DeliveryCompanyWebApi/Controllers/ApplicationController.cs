@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DeliveryCompanyData.Entities;
 using DeliveryCompanyDataAccessEF.Interface;
+using DeliveryCompanyWebApi.Validation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -28,7 +29,7 @@ namespace DeliveryCompanyWebApi.Controllers
         /// <response code="200">Returns the Application list</response>
         /// <response code="400">Application list not found</response>
         // GET api/Application
-        [HttpGet("")]
+        [HttpGet]
         public async Task<ActionResult> GetApplications()
         {
             try
@@ -76,8 +77,6 @@ namespace DeliveryCompanyWebApi.Controllers
 
         }
 
-
-
         /// <summary>
         /// Creates a new Application.
         /// </summary>
@@ -90,7 +89,7 @@ namespace DeliveryCompanyWebApi.Controllers
         {
             try
             {
-                if (Validation.Validation.CheckApplication(application))
+                if (ApplicationValidation.Check(application))
                 {
                     await _unitOfWork.Application.Add(application);
                     return Ok(application);
@@ -120,7 +119,7 @@ namespace DeliveryCompanyWebApi.Controllers
                 var applicationOld = await _unitOfWork.Application.Get(application.ApplicationId);
                 if (applicationOld == null) return BadRequest("Ошибка ввода");
 
-                if (Validation.Validation.CheckApplication(application) && (applicationOld.Status.Equals("Новая")))
+                if (ApplicationValidation.Check(application) && (applicationOld.Status.Equals("Новая")))
                 {
                     await _unitOfWork.Application.Update(application);
                     return Ok(application);

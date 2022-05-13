@@ -14,7 +14,7 @@ namespace DeliveryCompanyDataAccessEF.Interface
         Task<List<TEntity>> GetAll();
         Task<TEntity> Get(object id);
         Task<TEntity> Add(TEntity entity);
-        Task<TEntity> Update(TEntity entity);
-        Task<TEntity> Delete(object id);
+        Task Update(TEntity entity);
+        Task Delete(object id);
     }
 }
