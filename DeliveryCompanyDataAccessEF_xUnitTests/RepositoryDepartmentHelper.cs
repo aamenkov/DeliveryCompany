@@ -7,6 +7,9 @@ using DeliveryCompanyData.Entities;
 
 namespace DeliveryCompanyDataAccessEF_xUnitTests
 {
+    /// <summary>
+    /// Вспомогательный класс для тестирования, для создания отделений.
+    /// </summary>
     internal static class RepositoryDepartmentHelper
     {
         internal static Department AddTestDepartment(string name)

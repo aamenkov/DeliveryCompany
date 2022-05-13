@@ -10,6 +10,9 @@ using Xunit;
 
 namespace DeliveryCompanyDataAccessEF_xUnitTests
 {
+    /// <summary>
+    /// Класс для тестирования репозитория отделений.
+    /// </summary>
     public class RepositoryDepartmentTest
     {
         /// <summary>

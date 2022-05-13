@@ -4,7 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeliveryCompanyData.Entities
-{
+{   
+    /// <summary>
+    /// Класс для заявок.
+    /// </summary>
     public class Application
     {
         [Key]

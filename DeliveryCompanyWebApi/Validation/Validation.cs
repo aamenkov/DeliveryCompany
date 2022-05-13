@@ -5,9 +5,11 @@ using DeliveryCompanyData.Entities;
 
 namespace DeliveryCompanyWebApi.Validation
 {
+    /// <summary>
+    /// Вспомогательный класс для валидации и проверки входных данных
+    /// </summary>
     public static class Validation
     {
-        //TODO: добавить логгирование
         private static readonly string[] _expectedInput = { "Новая", "Передано на выполнение", "Выполнена", "Отменена" };
         public static bool CheckApplication(Application application)
         {

@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DeliveryCompanyData.Entities
 {
+    /// <summary>
+    /// Класс для отделений.
+    /// </summary>
     public class Department
     {
         [Key]

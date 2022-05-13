@@ -11,6 +11,9 @@ using DeliveryCompanyDataAccessEF.Interface;
 
 namespace DeliveryCompanyDataAccessEF_xUnitTests
 {
+    /// <summary>
+    /// Вспомогательный класс для тестирования, для создания заявок.
+    /// </summary>
     internal static class RepositoryApplicationHelper
     {
         internal static Application AddTestApplication(string deliveryAddress)
