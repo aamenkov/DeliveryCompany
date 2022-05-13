@@ -1,5 +1,4 @@
 ﻿using DeliveryCompanyDataAccessEF.Interface;
-using NLog;
 using System;
 using DeliveryCompanyDataAccessEF.Context;
 
@@ -7,7 +6,6 @@ namespace DeliveryCompanyDataAccessEF.Implementation
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly MyAppContext _context;
 
         public UnitOfWork(MyAppContext context)

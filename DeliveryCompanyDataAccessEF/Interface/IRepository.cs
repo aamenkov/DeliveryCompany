@@ -11,46 +11,6 @@ namespace DeliveryCompanyDataAccessEF.Interface
     /// </summary>
     public interface IRepository<TEntity> where TEntity : class
     {
-        ///// <summary>
-        ///// Получить объект по идентификатору
-        ///// </summary>
-        //public TEntity GetById(object id);
-
-        ///// <summary>
-        ///// Получить все объекты
-        ///// </summary>
-        //public IEnumerable<TEntity> GetAll();
-
-        ///// <summary>
-        ///// Найти объекты по заданному условию
-        ///// </summary>
-        //public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
-
-        ///// <summary>
-        ///// Добавить новый экземляр сущности
-        ///// </summary>
-        //public void Add(TEntity entity);
-
-        ///// <summary>
-        ///// Добавить нескольно сущностей
-        ///// </summary>
-        //public void AddRange(IEnumerable<TEntity> entities);
-
-        ///// <summary>
-        ///// Удаление сущности
-        ///// </summary>
-        //public void Remove(TEntity entity);
-
-        ///// <summary>
-        ///// Удаление сущности по Id
-        ///// </summary>
-        //public void Remove(object id);
-
-        ///// <summary>
-        ///// Удаление сущностей по списку
-        ///// </summary>
-        //public void RemoveRange(IEnumerable<TEntity> entities);
-
         Task<List<TEntity>> GetAll();
         Task<TEntity> Get(object id);
         Task<TEntity> Add(TEntity entity);
